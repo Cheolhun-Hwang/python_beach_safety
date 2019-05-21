@@ -6,7 +6,7 @@ from mpl_toolkits.mplot3d import Axes3D
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.cluster import KMeans
 
-#############################################################################################################################################
+########################################################################################################################
 
 ## Set Params
 print("Set Params \n")
@@ -22,7 +22,7 @@ optimal_k = 10
 
 type = 'drifting' # 'drowning'
 
-#############################################################################################################################################
+########################################################################################################################
 
 ## Load Data
 print("Load Data \n")
@@ -148,6 +148,7 @@ print(centers)
 print("Cluster Result : \n")
 print(temp_data.head())
 
+########################################################################################################################
 
 ## Data Split Data
 print("Data Split Data \n")
@@ -162,7 +163,7 @@ for index in range(0, len(clusters), 1):
     print(clusters[index].head())
     print("Length : " + str(len(clusters[index])))
 
-#############################################################################################################################################
+########################################################################################################################
 
 ## Summarize Clusters
 print("Summarize \n")
@@ -193,16 +194,18 @@ for index in range(0, len(clusters), 1):
         print("Size : " + str(cluster_dic['size']))
         feature_summarize.append(cluster_dic)
     clusters_summarize.append(feature_summarize)
-len("Cluster Summarize : " + str(len(clusters_summarize)))
+
+
+print("Cluster Summarize : " + str(len(clusters_summarize)))
 
 with open(load_path+'cluster_summarize.txt', 'w') as f:
     for item in clusters_summarize:
         f.write("%s\n" % item)
 
-#############################################################################################################################################
+########################################################################################################################
 
 ## Test Data set
-print("Test Dataset Load... \n")
+print("\nTest Dataset Load... \n")
 
 if(type == 'drifting'):
     print("type : drifting")
@@ -212,6 +215,7 @@ else:
     print("type : drowning")
     f, c, d = get_drowning_time(load_path, load_drift_file)
 
+########################################################################################################################
 
 ## P(S) 구하기!
 print("P(mobS) \n")
@@ -221,44 +225,33 @@ d['prediction'] = 0
 for index in range(0, len(clusters_summarize), 1):
     feature_summarize = clusters_summarize[index]
     print("cluster : " + str((index+1)))
-    print(str(feature_summarize[0]['min']) + " <= " + str(d.hour) + " <= " + str(
-        feature_summarize[0]['max']) + " = " + str(
-        ((feature_summarize[0]['min'] <= d.hour) & (d.hour <= feature_summarize[0]['max']))))
-    print(str(feature_summarize[1]['min']) + " <= " + str(d.wind_dir) + " <= " + str(
-        feature_summarize[1]['max']) + " = " + str(
-        ((feature_summarize[1]['min'] <= d.wind_dir) & (d.wind_dir <= feature_summarize[1]['max']))))
-    print(str(feature_summarize[2]['min']) + " <= " + str(d.current_dir) + " <= " + str(
-        feature_summarize[2]['max']) + " = " + str(
-        ((feature_summarize[2]['min'] <= d.current_dir) & (d.current_dir <= feature_summarize[2]['max']))))
-    print(str(feature_summarize[3]['min']) + " <= " + str(d.wind_speed) + " <= " + str(
-        feature_summarize[3]['max']) + " = " + str(
-        ((feature_summarize[3]['min'] <= d.wind_speed) & (d.wind_speed <= feature_summarize[3]['max']))))
-    print(str(feature_summarize[4]['min']) + " <= " + str(d.current_speed) + " <= " + str(
-        feature_summarize[4]['max']) + " = " + str(
-        ((feature_summarize[4]['min'] <= d.current_speed) & (d.current_speed <= feature_summarize[4]['max']))))
-    print(str(feature_summarize[5]['min']) + " <= " + str(d.wave_height) + " <= " + str(
-        feature_summarize[5]['max']) + " = " + str(
-        ((feature_summarize[5]['min'] <= d.wave_height) & (d.wave_height <= feature_summarize[5]['max']))))
-    print(str(feature_summarize[6]['min']) + " <= " + str(d.water_temp) + " <= " + str(
-        feature_summarize[6]['max']) + " = " + str(
-        ((feature_summarize[6]['min'] <= d.water_temp) & (d.water_temp <= feature_summarize[6]['max']))))
-    print(str(feature_summarize[7]['min']) + " <= " + str(d.danger_depth) + " <= " + str(
-        feature_summarize[7]['max']) + " = " + str(
-        ((feature_summarize[7]['min'] <= d.danger_depth) & (d.danger_depth <= feature_summarize[7]['max']))))
-    print(str(feature_summarize[8]['min']) + " <= " + str(d.tide_variation) + " <= " + str(
-        feature_summarize[8]['max']) + " = " + str(
-        ((feature_summarize[8]['min'] <= d.tide_variation) & (d.tide_variation <= feature_summarize[8]['max']))))
-    print(str((((feature_summarize[0]['min'] <= d.hour) & (d.hour <= feature_summarize[0]['max'])) &
-          ((feature_summarize[1]['min'] <= d.wind_dir) & (d.wind_dir <= feature_summarize[1]['max'])) &
-          ((feature_summarize[2]['min'] <= d.current_dir) & (d.current_dir <= feature_summarize[2]['max'])) &
-          ((feature_summarize[3]['min'] <= d.wind_speed) & (d.wind_speed <= feature_summarize[3]['max'])) &
-          ((feature_summarize[4]['min'] <= d.current_speed) & (d.current_speed <= feature_summarize[4]['max'])) &
-          ((feature_summarize[5]['min'] <= d.wave_height) & (d.wave_height <= feature_summarize[5]['max'])) &
-          ((feature_summarize[6]['min'] <= d.water_temp) & (d.water_temp <= feature_summarize[6]['max'])) &
-          ((feature_summarize[7]['min'] <= d.danger_depth) & (d.danger_depth <= feature_summarize[7]['max'])) &
-          ((feature_summarize[8]['min'] <= d.tide_variation) & (d.tide_variation <= feature_summarize[8]['max'])))))
-
-
+    # print(str(feature_summarize[0]['min']) + " <= d.hour <= " + str(
+    #     feature_summarize[0]['max']) + " = " + str(
+    #     ((feature_summarize[0]['min'] <= d.hour) & (d.hour <= feature_summarize[0]['max']))))
+    # print(str(feature_summarize[1]['min']) + " <= d.wind_dir <= " + str(
+    #     feature_summarize[1]['max']) + " = " + str(
+    #     ((feature_summarize[1]['min'] <= d.wind_dir) & (d.wind_dir <= feature_summarize[1]['max']))))
+    # print(str(feature_summarize[2]['min']) + " <= d.current_dir <= " + str(
+    #     feature_summarize[2]['max']) + " = " + str(
+    #     ((feature_summarize[2]['min'] <= d.current_dir) & (d.current_dir <= feature_summarize[2]['max']))))
+    # print(str(feature_summarize[3]['min']) + " <= d.wind_speed <= " + str(
+    #     feature_summarize[3]['max']) + " = " + str(
+    #     ((feature_summarize[3]['min'] <= d.wind_speed) & (d.wind_speed <= feature_summarize[3]['max']))))
+    # print(str(feature_summarize[4]['min']) + " <= d.current_speed <= " + str(
+    #     feature_summarize[4]['max']) + " = " + str(
+    #     ((feature_summarize[4]['min'] <= d.current_speed) & (d.current_speed <= feature_summarize[4]['max']))))
+    # print(str(feature_summarize[5]['min']) + " <= d.wave_height <= " + str(
+    #     feature_summarize[5]['max']) + " = " + str(
+    #     ((feature_summarize[5]['min'] <= d.wave_height) & (d.wave_height <= feature_summarize[5]['max']))))
+    # print(str(feature_summarize[6]['min']) + " <= d.water_temp <= " + str(
+    #     feature_summarize[6]['max']) + " = " + str(
+    #     ((feature_summarize[6]['min'] <= d.water_temp) & (d.water_temp <= feature_summarize[6]['max']))))
+    # print(str(feature_summarize[7]['min']) + " <= d.danger_depth <= " + str(
+    #     feature_summarize[7]['max']) + " = " + str(
+    #     ((feature_summarize[7]['min'] <= d.danger_depth) & (d.danger_depth <= feature_summarize[7]['max']))))
+    # print(str(feature_summarize[8]['min']) + " <= d.tide_variation <= " + str(
+    #     feature_summarize[8]['max']) + " = " + str(
+    #     ((feature_summarize[8]['min'] <= d.tide_variation) & (d.tide_variation <= feature_summarize[8]['max']))))
 
     d.loc[(((feature_summarize[0]['min'] <= d.hour) & (d.hour <= feature_summarize[0]['max'])) &
           ((feature_summarize[1]['min'] <= d.wind_dir) & (d.wind_dir <= feature_summarize[1]['max'])) &
@@ -278,42 +271,33 @@ d['cluster'] = 0
 for index in range(0, len(clusters_summarize), 1):
     feature_summarize = clusters_summarize[index]
     print("cluster : " + str((index+1)))
-    print(str(feature_summarize[0]['min']) + " <= " + str(d.hour) + " <= " + str(
-        feature_summarize[0]['max']) + " = " + str(
-        ((feature_summarize[0]['min'] <= d.hour) & (d.hour <= feature_summarize[0]['max']))))
-    print(str(feature_summarize[1]['min']) + " <= " + str(d.wind_dir) + " <= " + str(
-        feature_summarize[1]['max']) + " = " + str(
-        ((feature_summarize[1]['min'] <= d.wind_dir) & (d.wind_dir <= feature_summarize[1]['max']))))
-    print(str(feature_summarize[2]['min']) + " <= " + str(d.current_dir) + " <= " + str(
-        feature_summarize[2]['max']) + " = " + str(
-        ((feature_summarize[2]['min'] <= d.current_dir) & (d.current_dir <= feature_summarize[2]['max']))))
-    print(str(feature_summarize[3]['min']) + " <= " + str(d.wind_speed) + " <= " + str(
-        feature_summarize[3]['max']) + " = " + str(
-        ((feature_summarize[3]['min'] <= d.wind_speed) & (d.wind_speed <= feature_summarize[3]['max']))))
-    print(str(feature_summarize[4]['min']) + " <= " + str(d.current_speed) + " <= " + str(
-        feature_summarize[4]['max']) + " = " + str(
-        ((feature_summarize[4]['min'] <= d.current_speed) & (d.current_speed <= feature_summarize[4]['max']))))
-    print(str(feature_summarize[5]['min']) + " <= " + str(d.wave_height) + " <= " + str(
-        feature_summarize[5]['max']) + " = " + str(
-        ((feature_summarize[5]['min'] <= d.wave_height) & (d.wave_height <= feature_summarize[5]['max']))))
-    print(str(feature_summarize[6]['min']) + " <= " + str(d.water_temp) + " <= " + str(
-        feature_summarize[6]['max']) + " = " + str(
-        ((feature_summarize[6]['min'] <= d.water_temp) & (d.water_temp <= feature_summarize[6]['max']))))
-    print(str(feature_summarize[7]['min']) + " <= " + str(d.danger_depth) + " <= " + str(
-        feature_summarize[7]['max']) + " = " + str(
-        ((feature_summarize[7]['min'] <= d.danger_depth) & (d.danger_depth <= feature_summarize[7]['max']))))
-    print(str(feature_summarize[8]['min']) + " <= " + str(d.tide_variation) + " <= " + str(
-        feature_summarize[8]['max']) + " = " + str(
-        ((feature_summarize[8]['min'] <= d.tide_variation) & (d.tide_variation <= feature_summarize[8]['max']))))
-    print(str((((feature_summarize[0]['min'] <= d.hour) & (d.hour <= feature_summarize[0]['max'])) &
-               ((feature_summarize[1]['min'] <= d.wind_dir) & (d.wind_dir <= feature_summarize[1]['max'])) &
-               ((feature_summarize[2]['min'] <= d.current_dir) & (d.current_dir <= feature_summarize[2]['max'])) &
-               ((feature_summarize[3]['min'] <= d.wind_speed) & (d.wind_speed <= feature_summarize[3]['max'])) &
-               ((feature_summarize[4]['min'] <= d.current_speed) & (d.current_speed <= feature_summarize[4]['max'])) &
-               ((feature_summarize[5]['min'] <= d.wave_height) & (d.wave_height <= feature_summarize[5]['max'])) &
-               ((feature_summarize[6]['min'] <= d.water_temp) & (d.water_temp <= feature_summarize[6]['max'])) &
-               ((feature_summarize[7]['min'] <= d.danger_depth) & (d.danger_depth <= feature_summarize[7]['max'])) &
-               ((feature_summarize[8]['min'] <= d.tide_variation) & (d.tide_variation <= feature_summarize[8]['max'])))))
+    # print(str(feature_summarize[0]['min']) + " <= d.hour <= " + str(
+    #     feature_summarize[0]['max']) + " = " + str(
+    #     ((feature_summarize[0]['min'] <= d.hour) & (d.hour <= feature_summarize[0]['max']))))
+    # print(str(feature_summarize[1]['min']) + " <= d.wind_dir <= " + str(
+    #     feature_summarize[1]['max']) + " = " + str(
+    #     ((feature_summarize[1]['min'] <= d.wind_dir) & (d.wind_dir <= feature_summarize[1]['max']))))
+    # print(str(feature_summarize[2]['min']) + " <= d.current_dir <= " + str(
+    #     feature_summarize[2]['max']) + " = " + str(
+    #     ((feature_summarize[2]['min'] <= d.current_dir) & (d.current_dir <= feature_summarize[2]['max']))))
+    # print(str(feature_summarize[3]['min']) + " <= d.wind_speed <= " + str(
+    #     feature_summarize[3]['max']) + " = " + str(
+    #     ((feature_summarize[3]['min'] <= d.wind_speed) & (d.wind_speed <= feature_summarize[3]['max']))))
+    # print(str(feature_summarize[4]['min']) + " <= d.current_speed <= " + str(
+    #     feature_summarize[4]['max']) + " = " + str(
+    #     ((feature_summarize[4]['min'] <= d.current_speed) & (d.current_speed <= feature_summarize[4]['max']))))
+    # print(str(feature_summarize[5]['min']) + " <= d.wave_height <= " + str(
+    #     feature_summarize[5]['max']) + " = " + str(
+    #     ((feature_summarize[5]['min'] <= d.wave_height) & (d.wave_height <= feature_summarize[5]['max']))))
+    # print(str(feature_summarize[6]['min']) + " <= d.water_temp <= " + str(
+    #     feature_summarize[6]['max']) + " = " + str(
+    #     ((feature_summarize[6]['min'] <= d.water_temp) & (d.water_temp <= feature_summarize[6]['max']))))
+    # print(str(feature_summarize[7]['min']) + " <= d.danger_depth <= " + str(
+    #     feature_summarize[7]['max']) + " = " + str(
+    #     ((feature_summarize[7]['min'] <= d.danger_depth) & (d.danger_depth <= feature_summarize[7]['max']))))
+    # print(str(feature_summarize[8]['min']) + " <= d.tide_variation <= " + str(
+    #     feature_summarize[8]['max']) + " = " + str(
+    #     ((feature_summarize[8]['min'] <= d.tide_variation) & (d.tide_variation <= feature_summarize[8]['max']))))
 
     d.loc[(((feature_summarize[0]['min'] <= d.hour) & (d.hour <= feature_summarize[0]['max'])) &
           ((feature_summarize[1]['min'] <= d.wind_dir) & (d.wind_dir <= feature_summarize[1]['max'])) &
@@ -328,6 +312,8 @@ for index in range(0, len(clusters_summarize), 1):
 
 d.to_csv(load_path+"time_drifting_cluster.csv")
 
+########################################################################################################################
+
 print("\nAdding P(s) Column : ")
 import scipy as sp
 import scipy.stats
@@ -338,46 +324,56 @@ for index in range(0, len(d), 1):
     data_columns = list(d.columns.values)
     if (int(d[index:index+1]['prediction']) == 1) :
         # 범위에 들어왔을 때, 확인
-        print("Length : " + str(d[index:index+1]))
-        print("Index : " + str(index))
-        for index2 in range(0, len(clusters_summarize), 1):
-            ps = []
-            feature_summarize = clusters_summarize[index2]
-            print("Features Length : " + str(len(feature_summarize)))
-            for index3 in range(0, len(feature_summarize), 1):
-                print("Feature : " + str(feature_summarize[index3]))
-                print("Mean : " + str(feature_summarize[index3]['mean']))
-                print("STD : " + str(feature_summarize[index3]['std']))
-                print("Feature : " + data_columns[index3])
-                print("Value : " + str(float(d[index:index + 1][data_columns[index3]])))
-                rv = sp.stats.norm(loc=feature_summarize[index3]['mean'], scale=feature_summarize[index3]['std'])
-                prob = rv.cdf(float(d[index:index + 1][data_columns[index3]]))
-                print("Result : ")
-                print(prob)
-                ps.append(prob)
+        print("\n")
+        print("row : " + str(index+1))
+        print("index : " + str(index))
+        print(str(d[index:index + 1]))
 
-            print("Prob List : ")
-            print(ps)
-            add = 0
-            for p in ps:
-                print(p)
-                add += p
+        cluster_num = int(d[index:index+1]['cluster'])
+        print("Cluster : " + str(cluster_num))
+        ps = []
+        feature_summarize = clusters_summarize[cluster_num-1]
+        print("Features Length : " + str(len(feature_summarize)))
+        for index3 in range(0, len(feature_summarize), 1):
+            print("Feature : " + data_columns[index3])
+            print(str(feature_summarize[index3]))
+            print("Mean : " + str(feature_summarize[index3]['mean']))
+            print("STD : " + str(feature_summarize[index3]['std']))
+            print("Value : " + str(float(d[index:index + 1][data_columns[index3]])))
+            rv = sp.stats.norm(loc=feature_summarize[index3]['mean'], scale=feature_summarize[index3]['std'])
+            prob = rv.cdf(float(d[index:index + 1][data_columns[index3]]))
+            print("Result : ")
+            print(prob)
+            ps.append(prob)
 
-            print("Length " + str(len(ps)))
-            d.loc[index:index+1, len(data_columns)-1:len(data_columns)] = add / len(ps)
+        print("\nProb List : ")
+        print(ps)
+        add = 0
+        for p in ps:
+            add += p
+
+        print("Prob Length : " + str(len(ps)))
+        res = add / len(ps)
+        print("Prob : " + str(res))
+        print("Origin : \n" + str(d.iloc[index:index + 1, len(data_columns) - 1:len(data_columns)]))
+        d.iloc[index:index + 1, len(data_columns) - 1:len(data_columns)] = res
+        print("Modify : \n" + str(d.iloc[index:index + 1, len(data_columns) - 1:len(data_columns)]))
     else:
-        d.loc[index:index + 1, len(data_columns) - 1:len(data_columns)] = 0
+        print("\n")
+        d.iloc[index:index + 1, len(data_columns) - 1:len(data_columns)] = 0
+        print("Non Select : \n" + str(d.iloc[index:index + 1, len(data_columns) - 1:len(data_columns)]))
 
+########################################################################################################################
 
 ## P(S) 구하기!
 print("P(S) \n")
 
-def matrixBasian(datas, cluster_id, acc, res):
-    result = datas[datas[res] > 0]
+def matrixBasian(datas, cluster_id):
+    result = datas[datas['prediction'] > 0]
 
     total_length = len(datas) # 4331
     pred_length = len(result) # 745
-    accident_p = len(result[result[acc] == cluster_id]) # 101
+    accident_p = len(result[result['cluster'] == cluster_id]) # 101
 
     print(str(accident_p) + " / " + str(pred_length) + " / " + str(total_length))
 
@@ -385,46 +381,63 @@ def matrixBasian(datas, cluster_id, acc, res):
     p_p = pred_length / total_length
     p_res = ((p_sp*p_p) / ((p_sp*p_p)+((1-p_sp)*(1-p_p))))
     print("result : " + str(p_res))
-    return p_res
+    return p_sp, p_p, p_res
 
-
+d['p(s|pred)'] = 0
+d['p(pred)'] = 0
 d['p(pred|s)'] = 0
-d['p(mobS)*p(pred|s)'] = 0
+
 for index in range(0, len(d), 1):
     data_columns = list(d.columns.values)
-    cluster = int(d[index:index + 1]['cluster'])
-    print(cluster)
-    print(d[index:index + 1]['p(mobS)'])
-    if(cluster > 0):
-        calc = matrixBasian(d, cluster, 'cluster', 'prediction')
-        d.loc[index:index + 1, len(data_columns) - 2:len(data_columns) - 1] = calc
-        d.loc[index:index + 1, len(data_columns) - 1:len(data_columns)] = float(d[index:index + 1]['p(mobS)']) * calc
-    else:
-        d.loc[index:index + 1, len(data_columns) - 2:len(data_columns)-1] = 0
-        d.loc[index:index + 1, len(data_columns) - 1:len(data_columns)] = 0
+    if (float(d[index:index+1]['p(mobS)']) > 0) :
+        print("\n")
+        print("row : " + str(index + 1))
+        print("index : " + str(index))
+        print(str(d[index:index + 1]))
 
-# ## predict all (S) 구하기!
-# print("P(drifting) \n")
-#
-#
-# def matrixBasianDrifting(datas, acc, res):
-#     result = datas[datas[res] > 0]
-#
-#     total_length = len(datas) # 4331
-#     pred_length = len(result) # 745
-#     accident_p = len(result[result[acc]> 0]) # 101
-#     print(str(accident_p) + " / " + str(pred_length) + " / " + str(total_length))
-#
-#     p_sp = accident_p / pred_length
-#     p_p = pred_length / total_length
-#     p_res = ((p_sp*p_p) / ((p_sp*p_p)+((1-p_sp)*(1-p_p))))
-#     print("result : " + str(p_res))
-#     return p_res
-#
-# d['prob(drifting|pred)'] = matrixBasianDrifting(d, 'prediction', 'drifting')
-#
-# d['prob(drifting)'] = d['p(mobS)*prob(pred|s)']*d['prob(drifting|pred)']
+        cluster_num = int(d[index:index + 1]['cluster'])
+        print("Cluster : " + str(cluster_num))
+
+        p_sp, p_p, p_res = matrixBasian(d, cluster_num)
+        d.iloc[index:index + 1, len(data_columns) - 3:len(data_columns) - 2] = p_sp
+        d.iloc[index:index + 1, len(data_columns) - 2:len(data_columns) - 1] = p_p
+        d.iloc[index:index + 1, len(data_columns) - 1:len(data_columns)] = p_res
+        print("Select p(s|pred) : \n" + str(d.iloc[index:index + 1, len(data_columns) - 3:len(data_columns) - 2]))
+        print("Select p(pred) : \n" + str(d.iloc[index:index + 1, len(data_columns) - 2:len(data_columns) - 1]))
+        print("Select p(pred|s) : \n" + str(d.iloc[index:index + 1, len(data_columns) - 1:len(data_columns)]))
+    else:
+        print("\n")
+        d.iloc[index:index + 1, len(data_columns) - 3:len(data_columns)-2] = 0
+        d.iloc[index:index + 1, len(data_columns) - 2:len(data_columns)-1] = 0
+        d.iloc[index:index + 1, len(data_columns) - 1:len(data_columns)] = 0
+        print("Non Select p(s|pred) : \n" + str(d.iloc[index:index + 1, len(data_columns) - 3:len(data_columns)-2]))
+        print("Non Select p(pred) : \n" + str(d.iloc[index:index + 1, len(data_columns) - 2:len(data_columns)-1]))
+        print("Non Select p(pred|s) : \n" + str(d.iloc[index:index + 1, len(data_columns) - 1:len(data_columns)]))
+
+
+d['p(mobS)*p(pred|s)'] = d['p(mobS)'] * d['p(pred|s)']
+########################################################################################################################
 
 temp_data.to_csv(load_path+"time_drifting_cluster.csv")
-d.to_csv(load_path+"time_drifting_ps.csv")
+d.to_csv(load_path+"time_drifting_ps.csv", index=False)
 print(d)
+
+########################################################################################################################
+## Result
+print("Result \n")
+from sklearn.metrics import confusion_matrix
+
+tn, fp, fn, tp = confusion_matrix(np.array(d[type]), np.array(d['prediction'])).ravel()
+
+## 정밀도
+precision = ((tp) / (tp+fp))
+
+# 재현율
+recall = ((tp)/(tp+fn))
+
+f_measure = 2*((precision*recall) / (precision+recall))
+
+
+print("precision : " + str(precision))
+print("recall : " + str(recall))
+print("f-measure : " + str(f_measure))
