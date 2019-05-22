@@ -10,26 +10,29 @@ from sklearn.cluster import KMeans
 
 ## Set Params
 print("Set Params \n")
-load_path = 'E:/data/csv/daecheon_beach/20190509/'
-load_drift_file = 'drifting/normal_drifting.csv'
-load_drown_file = 'drowning/normal_drowning.csv'
+load_path = 'E:/workspace/python/SaftyBeach/data/dataset/'
+load_drift_file = 'normal.csv'
+load_drown_file = 'normal.csv'
 
+save_path = 'E:/workspace/python/SaftyBeach/data/'
 save_drift_path = 'drifting/save/'
 save_drown_path = 'drowning/save/'
 
 features_length = 9
-optimal_k = 10
 
-type = 'drifting' # 'drowning'
+# type = 'drowning'
+type = 'drifting'
+
+type_optimal = 'gap'
+optimal_bash = 1000
 
 ########################################################################################################################
 
 ## Load Data
-print("Load Data \n")
+print("\nLoad Data")
 
 def get_drowning_time(path, file):
     dataset = pd.read_csv(path + file)
-    dataset = dataset[(0.4166 <= dataset.hour) & (dataset.hour <= 0.84)]
 
     wind_dir = dataset['wind_dir']
     current_dir = dataset['current_dir']
@@ -37,8 +40,8 @@ def get_drowning_time(path, file):
     current_speed = dataset['current_speed']
     wave_height = dataset['wave_height']
     water_temp = dataset['water_temp']
-    danger_depth = dataset['danger_depth']
-    tide_variation = dataset['tide_variation']
+    danger_depth = dataset['tide_height']
+    tide_variation = dataset['dif_tide_height']
     hour = dataset['hour']
     drowning = dataset['drowning']
 
@@ -49,7 +52,7 @@ def get_drowning_time(path, file):
     return temp_dataset, drowning, dataset
 def get_drowning_time_accident(path, file):
     data = pd.read_csv(path + file)
-    dataset = data[data['drifting'] > 0]
+    dataset = data[data['drowning'] > 0]
     dataset = dataset[((0.4166 <= dataset.hour) & (dataset.hour <= 0.84))]
     wind_dir = dataset['wind_dir']
     current_dir = dataset['current_dir']
@@ -57,8 +60,8 @@ def get_drowning_time_accident(path, file):
     current_speed = dataset['current_speed']
     wave_height = dataset['wave_height']
     water_temp = dataset['water_temp']
-    danger_depth = dataset['danger_depth']
-    tide_variation = dataset['tide_variation']
+    danger_depth = dataset['tide_height']
+    tide_variation = dataset['dif_tide_height']
     hour = dataset['hour']
     drowning = dataset['drowning']
 
@@ -69,7 +72,6 @@ def get_drowning_time_accident(path, file):
     return temp_dataset, drowning, dataset
 def get_drifting_time(path, file):
     dataset = pd.read_csv(path + file)
-    dataset = dataset[(0.4166 <= dataset.hour) & (dataset.hour <= 0.84)]
 
     wind_dir = dataset['wind_dir']
     current_dir = dataset['current_dir']
@@ -77,8 +79,8 @@ def get_drifting_time(path, file):
     current_speed = dataset['current_speed']
     wave_height = dataset['wave_height']
     water_temp = dataset['water_temp']
-    danger_depth = dataset['danger_depth']
-    tide_variation = dataset['tide_variation']
+    danger_depth = dataset['tide_height']
+    tide_variation = dataset['dif_tide_height']
     hour = dataset['hour']
     drifting = dataset['drifting']
 
@@ -91,7 +93,6 @@ def get_drifting_time_accident(path, file):
     data = pd.read_csv(path + file)
 
     dataset = data[data['drifting'] > 0]
-    dataset = dataset[(0.4166 <= dataset.hour) & (dataset.hour <= 0.84)]
 
 
     wind_dir = dataset['wind_dir']
@@ -100,8 +101,8 @@ def get_drifting_time_accident(path, file):
     current_speed = dataset['current_speed']
     wave_height = dataset['wave_height']
     water_temp = dataset['water_temp']
-    danger_depth = dataset['danger_depth']
-    tide_variation = dataset['tide_variation']
+    danger_depth = dataset['tide_height']
+    tide_variation = dataset['dif_tide_height']
     hour = dataset['hour']
     drifting = dataset['drifting']
 
@@ -113,6 +114,7 @@ def get_drifting_time_accident(path, file):
 
 def showData(feature, label, data):
     print("Show Up Database : \n")
+    print("Length : " + str(len(feature)))
     print(feature.head())
     print(label.head())
     print(data.head())
@@ -123,10 +125,80 @@ if(type == 'drifting'):
     ac, lb, ad = get_drifting_time_accident(load_path, load_drift_file)
 else:
     print("type : drowning")
-    ac, lb, ad = get_drowning_time_accident(load_path, load_drift_file)
+    ac, lb, ad = get_drowning_time_accident(load_path, load_drown_file)
+
+showData(ac, lb, ad)
+########################################################################################################################
+## Data K-means
+print("\nOptimal K")
+
+def silhouette_socore(data):
+    from sklearn.metrics import silhouette_score
+    Sum_of_squared_distances = []
+    K = range(2, 11, 1)
+    max = 0
+    max_score = 0
+    for n_clusters in K:
+        clusterer = KMeans(n_clusters=n_clusters, n_init=123)
+        preds = clusterer.fit_predict(data)
+
+        score = silhouette_score(data, preds, metric='euclidean')
+        Sum_of_squared_distances.append(score)
+        # print ("For n_clusters = {}, silhouette score is {})".format(n_clusters, score))
+
+        if(score > max_score):
+            max_score = score
+            max = n_clusters
+
+    return max
+
+def gap_statistic(data):
+    from gap_statistic import OptimalK
+    optimalK = OptimalK(parallel_backend='rust')
+    n_clusters = optimalK(np.array(data), cluster_array=np.arange(1, 11))
+
+    return n_clusters
+
+def bestK(list):
+    set_dic = {}
+    for num in list:
+        if num in set_dic:
+             set_dic[num] += 1
+        else:
+             set_dic[num] = 1
+
+    print(set_dic)
+
+    best_key = 0
+    best_value = 0
+
+    for key, value in set_dic.items():
+        if(value > best_value):
+            best_value = value
+            best_key = key
+
+    return best_key
+
+def findK(list, type, len):
+    optiK=[]
+    for num in range(0, len, 1):
+        print("Loop : " + str(num));
+        if(type == 'gap'):
+            gap = gap_statistic(list)
+            optiK.append(gap)
+        else:
+            sil = silhouette_socore(list)
+            optiK.append(sil)
+    best = bestK(optiK)
+    print(best)
+    return best
+
+optimal_k = findK(ac, type_optimal, optimal_bash)
+
+print("is : " + str(optimal_k))
 
 ## Data K-means
-print("Data K-means \n")
+print("\nData K-means \n")
 def dataKmenas(featrues):
     kmeans_model_1 = KMeans(n_clusters=optimal_k, n_init=123)
     distances_1 = kmeans_model_1.fit(featrues)
@@ -198,7 +270,7 @@ for index in range(0, len(clusters), 1):
 
 print("Cluster Summarize : " + str(len(clusters_summarize)))
 
-with open(load_path+'cluster_summarize.txt', 'w') as f:
+with open(save_path+'cluster_summarize.txt', 'w') as f:
     for item in clusters_summarize:
         f.write("%s\n" % item)
 
@@ -213,12 +285,12 @@ if(type == 'drifting'):
 
 else:
     print("type : drowning")
-    f, c, d = get_drowning_time(load_path, load_drift_file)
+    f, c, d = get_drowning_time(load_path, load_drown_file)
 
 ########################################################################################################################
 
 ## P(S) 구하기!
-print("P(mobS) \n")
+print("P(dist_s) \n")
 print("\nAdding Prediction Column : ")
 d['prediction'] = 0
 
@@ -260,11 +332,11 @@ for index in range(0, len(clusters_summarize), 1):
           ((feature_summarize[4]['min'] <= d.current_speed) & (d.current_speed <= feature_summarize[4]['max'])) &
           ((feature_summarize[5]['min'] <= d.wave_height) & (d.wave_height <= feature_summarize[5]['max'])) &
           ((feature_summarize[6]['min'] <= d.water_temp) & (d.water_temp <= feature_summarize[6]['max'])) &
-          ((feature_summarize[7]['min'] <= d.danger_depth) & (d.danger_depth <= feature_summarize[7]['max'])) &
-          ((feature_summarize[8]['min'] <= d.tide_variation) & (d.tide_variation <= feature_summarize[8]['max'])))
+          ((feature_summarize[7]['min'] <= d.tide_height) & (d.tide_height <= feature_summarize[7]['max'])) &
+          ((feature_summarize[8]['min'] <= d.dif_tide_height) & (d.dif_tide_height <= feature_summarize[8]['max'])))
     , 'prediction'] = 1
 
-d.to_csv(load_path+"time_drifting_prediction.csv")
+d.to_csv(save_path+"time_"+type+"_prediction.csv")
 print("\nAdding Cluster Column : ")
 d['cluster'] = 0
 
@@ -306,11 +378,11 @@ for index in range(0, len(clusters_summarize), 1):
           ((feature_summarize[4]['min'] <= d.current_speed) & (d.current_speed <= feature_summarize[4]['max'])) &
           ((feature_summarize[5]['min'] <= d.wave_height) & (d.wave_height <= feature_summarize[5]['max'])) &
           ((feature_summarize[6]['min'] <= d.water_temp) & (d.water_temp <= feature_summarize[6]['max'])) &
-          ((feature_summarize[7]['min'] <= d.danger_depth) & (d.danger_depth <= feature_summarize[7]['max'])) &
-          ((feature_summarize[8]['min'] <= d.tide_variation) & (d.tide_variation <= feature_summarize[8]['max'])))
+          ((feature_summarize[7]['min'] <= d.tide_height) & (d.tide_height <= feature_summarize[7]['max'])) &
+          ((feature_summarize[8]['min'] <= d.dif_tide_height) & (d.dif_tide_height <= feature_summarize[8]['max'])))
     , 'cluster'] = (index+1)
 
-d.to_csv(load_path+"time_drifting_cluster.csv")
+d.to_csv(save_path+"time_"+type+"_cluster.csv")
 
 ########################################################################################################################
 
@@ -318,7 +390,7 @@ print("\nAdding P(s) Column : ")
 import scipy as sp
 import scipy.stats
 
-d['p(mobS)'] = 0
+d['p(dist_s)'] = 0
 
 for index in range(0, len(d), 1):
     data_columns = list(d.columns.values)
@@ -389,7 +461,7 @@ d['p(pred|s)'] = 0
 
 for index in range(0, len(d), 1):
     data_columns = list(d.columns.values)
-    if (float(d[index:index+1]['p(mobS)']) > 0) :
+    if (float(d[index:index+1]['p(dist_s)']) > 0) :
         print("\n")
         print("row : " + str(index + 1))
         print("index : " + str(index))
@@ -415,11 +487,59 @@ for index in range(0, len(d), 1):
         print("Non Select p(pred|s) : \n" + str(d.iloc[index:index + 1, len(data_columns) - 1:len(data_columns)]))
 
 
-d['p(mobS)*p(pred|s)'] = d['p(mobS)'] * d['p(pred|s)']
+d['p(dist_s)*p(pred|s)'] = d['p(dist_s)'] * d['p(pred|s)']
+
 ########################################################################################################################
 
-temp_data.to_csv(load_path+"time_drifting_cluster.csv")
-d.to_csv(load_path+"time_drifting_ps.csv", index=False)
+def matrixBasianDrifting(datas):
+    result = datas[datas[type] > 0]
+
+    total_length = len(datas) # 4331
+    pred_length = len(result) # 745
+    accident_p = len(result[result['prediction'] > 0]) # 101
+
+    print(str(accident_p) + " / " + str(pred_length) + " / " + str(total_length))
+
+    p_sp = accident_p / pred_length
+    p_p = pred_length / total_length
+    p_res = ((p_sp*p_p) / ((p_sp*p_p)+((1-p_sp)*(1-p_p))))
+    print("result : " + str(p_res))
+    return p_sp, p_p, p_res
+
+d['p(pred|'+type+')'] = 0
+d['p('+type+')'] = 0
+d['p('+type+'|pred)'] = 0
+
+for index in range(0, len(d), 1):
+    data_columns = list(d.columns.values)
+    if (float(d[index:index+1]['p(dist_s)']) > 0) :
+        print("\n")
+        print("row : " + str(index + 1))
+        print("index : " + str(index))
+        print(str(d[index:index + 1]))
+
+        p_sp, p_p, p_res = matrixBasianDrifting(d)
+        d.iloc[index:index + 1, len(data_columns) - 3:len(data_columns) - 2] = p_sp
+        d.iloc[index:index + 1, len(data_columns) - 2:len(data_columns) - 1] = p_p
+        d.iloc[index:index + 1, len(data_columns) - 1:len(data_columns)] = p_res
+        print("Select p(pred|"+type+") : \n" + str(d.iloc[index:index + 1, len(data_columns) - 3:len(data_columns) - 2]))
+        print("Select p("+type+") : \n" + str(d.iloc[index:index + 1, len(data_columns) - 2:len(data_columns) - 1]))
+        print("Select p("+type+"|pred) : \n" + str(d.iloc[index:index + 1, len(data_columns) - 1:len(data_columns)]))
+    else:
+        print("\n")
+        d.iloc[index:index + 1, len(data_columns) - 3:len(data_columns)-2] = 0
+        d.iloc[index:index + 1, len(data_columns) - 2:len(data_columns)-1] = 0
+        d.iloc[index:index + 1, len(data_columns) - 1:len(data_columns)] = 0
+        print("Non Select p(pred|drift) : \n" + str(d.iloc[index:index + 1, len(data_columns) - 3:len(data_columns)-2]))
+        print("Non Select p(drift) : \n" + str(d.iloc[index:index + 1, len(data_columns) - 2:len(data_columns)-1]))
+        print("Non Select p(drift|pred) : \n" + str(d.iloc[index:index + 1, len(data_columns) - 1:len(data_columns)]))
+
+
+d['p('+type+'|pred)*(p(dist_s)*p(pred|s))'] = d['p('+type+'|pred)'] * d['p(dist_s)*p(pred|s)']
+########################################################################################################################
+
+temp_data.to_csv(save_path+"time_"+type+"_cluster.csv")
+d.to_csv(save_path+"time_"+type+"_ps.csv", index=False)
 print(d)
 
 ########################################################################################################################
@@ -437,7 +557,29 @@ recall = ((tp)/(tp+fn))
 
 f_measure = 2*((precision*recall) / (precision+recall))
 
+# TPR
+tpr = ((tp)/(tp+fn))
+
+# FNR
+fnr = ((fn)/(fn+tp))
 
 print("precision : " + str(precision))
 print("recall : " + str(recall))
 print("f-measure : " + str(f_measure))
+
+print("TPR : " + str(tpr))
+print("FNR : " + str(fnr))
+
+measure_str = "precision : " + str(precision) + "\n"
+measure_str += "recall : " + str(recall) + "\n"
+measure_str += "f_measure : " + str(f_measure) + "\n"
+measure_str += "TPR : " + str(tpr) + "\n"
+measure_str += "FNR : " + str(fnr) + "\n"
+measure_str += "Features : " + str(data_columns) + "\n"
+measure_str += "Optimal K : " + str(optimal_k) + "\n"
+measure_str += "type : " + type + "\n"
+measure_str += "optimal method : " + type_optimal + "\n"
+
+with open(save_path+'cluster_measure_'+type+'.txt', 'w') as f:
+    f.write("%s\n" %measure_str)
+

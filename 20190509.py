@@ -101,7 +101,7 @@ def gap_statistic(data, type):
     from gap_statistic import OptimalK
 
     array = []
-    for num in range (1, 16):
+    for num in range (1, 10):
         optimalK = OptimalK(parallel_backend='rust')
         n_clusters = optimalK(np.array(data), cluster_array=np.arange(2, 11))
         array.append(n_clusters)
