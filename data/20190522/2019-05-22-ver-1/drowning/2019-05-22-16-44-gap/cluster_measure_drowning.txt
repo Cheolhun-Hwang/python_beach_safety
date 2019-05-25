@@ -1,0 +1,10 @@
+precision : 0.49206349206349204
+recall : 0.9117647058823529
+f_measure : 0.6391752577319587
+TPR : 0.9117647058823529
+FNR : 0.08823529411764706
+Features : ['hour', 'wind_dir', 'current_dir', 'wind_speed', 'current_speed', 'wave_height', 'water_temp', 'tide_height', 'dif_tide_height', 'drifting', 'drifting_num', 'drowning', 'drowning_num', 'prediction', 'cluster', 'p(dist_s)', 'p(s|pred)', 'p(pred)', 'p(pred|s)', 'p(dist_s)*p(pred|s)', 'p(pred|drowning)', 'p(drowning)', 'p(drowning|pred)']
+Optimal : 7
+type : drowning
+optimal type : gap
+

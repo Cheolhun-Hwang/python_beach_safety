@@ -1,0 +1,12 @@
+precision : 0.8577235772357723
+recall : 0.985981308411215
+f_measure : 0.9173913043478261
+TPR : 0.985981308411215
+FNR : 0.014018691588785047
+Features : ['hour', 'wind_dir', 'current_dir', 'wind_speed', 'current_speed', 'wave_height', 'water_temp', 'tide_height', 'dif_tide_height', 'tide_variation']
+Optimal K : 49 / Pick : 94 / 1000
+{46: 60, 48: 88, 50: 91, 29: 8, 42: 59, 44: 49, 45: 64, 49: 94, 43: 65, 40: 44, 47: 76, 35: 17, 36: 35, 34: 17, 30: 13, 39: 37, 37: 29, 38: 43, 41: 42, 20: 1, 32: 15, 27: 5, 33: 16, 28: 6, 19: 1, 26: 3, 31: 17, 23: 2, 25: 2, 22: 1}
+type : drifting
+optimal method : gap
+merge type : avg
+

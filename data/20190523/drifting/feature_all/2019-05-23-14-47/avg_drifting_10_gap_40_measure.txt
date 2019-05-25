@@ -1,0 +1,12 @@
+precision : 0.694078947368421
+recall : 0.985981308411215
+f_measure : 0.8146718146718147
+TPR : 0.985981308411215
+FNR : 0.014018691588785047
+Features : ['year', 'month', 'day', 'hour', 'wind_dir', 'current_dir', 'wind_speed', 'current_speed', 'wave_height', 'water_temp', 'tide_height', 'dif_tide_height', 'tide_variation', 'drifting', 'drifting_num', 'drowning', 'drowning_num', 'prediction', 'cluster', 'p(dist_s)', 'p(s|pred)', 'p(pred)', 'p(pred|s)', 'p(dist_s)*p(pred|s)', 'p(pred|drifting)', 'p(drifting)', 'p(drifting|pred)']
+Optimal K : 39 / Pick : 113 / 1000
+{28: 39, 29: 43, 40: 105, 35: 75, 33: 54, 34: 75, 25: 15, 36: 86, 38: 99, 31: 44, 39: 113, 37: 79, 32: 44, 24: 12, 23: 10, 27: 28, 22: 10, 30: 34, 26: 16, 19: 4, 21: 8, 18: 1, 20: 5, 17: 1}
+type : drifting
+optimal method : gap
+merge type : avg
+

@@ -1,0 +1,10 @@
+precision : 0.24569460390355913
+recall : 1.0
+f_measure : 0.39447004608294933
+TPR : 1.0
+FNR : 0.0
+Features : ['hour', 'wind_dir', 'current_dir', 'wind_speed', 'current_speed', 'wave_height', 'water_temp', 'tide_height', 'dif_tide_height', 'drifting', 'drifting_num', 'drowning', 'drowning_num', 'prediction', 'cluster', 'p(dist_s)', 'p(s|pred)', 'p(pred)', 'p(pred|s)', 'p(dist_s)*p(pred|s)', 'p(pred|drifting)', 'p(drifting)', 'p(drifting|pred)']
+Optimal K : 10
+type : drifting
+optimal method : gap
+
