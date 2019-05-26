@@ -10,26 +10,28 @@ from sklearn.cluster import KMeans
 
 ## Set Params
 print("Set Params \n")
-file_type = 'avg'
+file_type = 'median'
 
-load_path = 'E:/workspace/python/SaftyBeach/data/20190523/dataset/'
-load_drift_file = file_type+'_normal.csv'
-load_drown_file = file_type+'_normal.csv'
+load_path = 'D:/workspace/python/SaftyBeach/data/20190523/dataset/'
+load_drift_file = file_type+'_drifting_normal.csv'
+load_drown_file = file_type+'_drowning_normal.csv'
 
-save_path = 'E:/workspace/python/SaftyBeach/data/20190523/'
+# load_drift_file = file_type+'_normal_2.csv'
+# load_drown_file = file_type+'_normal_2.csv'
+
+save_path = 'D:/workspace/python/SaftyBeach/data/20190523/'
 save_drift_path = 'drifting/save/'
 save_drown_path = 'drowning/save/'
 
 features_length = 10
 
-optimal_k_range = 47
-
+optimal_k_range = 50
 
 # type = 'drowning'
 type = 'drifting'
 
 type_optimal = 'gap'
-optimal_bash = 1000
+optimal_bash = 100
 
 
 save_file_name = file_type+"_"+type+"_"+str(features_length)+"_"+type_optimal+"_"+str(optimal_k_range)+"_"
@@ -47,11 +49,11 @@ def combinationFeature(dataset):
     wave_height = dataset['wave_height']
     water_temp = dataset['water_temp']
     tide_height = dataset['tide_height']
-    tide_variation = dataset['tide_variation']
     dif_tide_height = dataset['dif_tide_height']
+    tide_variation = dataset['tide_variation']
     ## combine :2
     return  pd.concat([wind_dir, current_dir, wind_speed, current_speed,
-                       wave_height, water_temp, tide_height, tide_variation, dif_tide_height], axis=1)
+                       wave_height, water_temp, tide_height, dif_tide_height, tide_variation], axis=1)
 
 
 
@@ -117,6 +119,8 @@ else:
 showData(ac, lb, ad)
 
 f_columns = list(ac.columns.values)
+
+print(str(f_columns))
 ########################################################################################################################
 ## Data K-means
 print("\nOptimal K")
@@ -183,9 +187,7 @@ def findK(list, type, len):
           + ' = ' + str(best_value/optimal_bash))
     return best_key, best_value, k_all
 
-# optimal_k, pick_value, pick_list = findK(ac, type_optimal, optimal_bash)
-
-optimal_k = optimal_k_range
+optimal_k, pick_value, pick_list = findK(ac, type_optimal, optimal_bash)
 
 print("Optimal K is : " + str(optimal_k))
 
@@ -280,6 +282,8 @@ else:
     print("type : drowning")
     f, c, d = get_drowning_time(load_path, load_drown_file)
 
+showData(f,c,d)
+
 ########################################################################################################################
 
 ## P(S) 구하기!
@@ -326,7 +330,7 @@ for index in range(0, len(clusters_summarize), 1):
            & ((feature_summarize[5]['min'] <= d.wave_height) & (d.wave_height <= feature_summarize[5]['max']))
            & ((feature_summarize[6]['min'] <= d.water_temp) & (d.water_temp <= feature_summarize[6]['max']))
            & ((feature_summarize[7]['min'] <= d.tide_height) & (d.tide_height <= feature_summarize[7]['max']))
-           & ((feature_summarize[8]['min'] <= d.tide_variation) & (d.tide_variation <= feature_summarize[8]['max']))
+           & ((feature_summarize[8]['min'] <= d.dif_tide_height) & (d.dif_tide_height <= feature_summarize[8]['max']))
            & ((feature_summarize[9]['min'] <= d.tide_variation) & (d.tide_variation <= feature_summarize[9]['max']))
            )
     , 'prediction'] = 1
@@ -374,7 +378,7 @@ for index in range(0, len(clusters_summarize), 1):
            & ((feature_summarize[5]['min'] <= d.wave_height) & (d.wave_height <= feature_summarize[5]['max']))
            & ((feature_summarize[6]['min'] <= d.water_temp) & (d.water_temp <= feature_summarize[6]['max']))
            & ((feature_summarize[7]['min'] <= d.tide_height) & (d.tide_height <= feature_summarize[7]['max']))
-           & ((feature_summarize[8]['min'] <= d.tide_variation) & (d.tide_variation <= feature_summarize[8]['max']))
+           & ((feature_summarize[8]['min'] <= d.dif_tide_height) & (d.dif_tide_height <= feature_summarize[8]['max']))
            & ((feature_summarize[9]['min'] <= d.tide_variation) & (d.tide_variation <= feature_summarize[9]['max']))
            )
     , 'cluster'] = (index+1)
