@@ -2,19 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c5380c7d-9ee8-464c-abc9-4e95983bc252" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/graph.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/temp.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/20190523.py" beforeDir="false" afterPath="$PROJECT_DIR$/20190523.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/20190523/avg_drifting_10_gap_47_cluster.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/20190523/avg_drifting_10_gap_47_cluster.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/20190523/avg_drifting_10_gap_47_cluster_summarize.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/20190523/avg_drifting_10_gap_47_cluster_summarize.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/20190523/avg_drifting_10_gap_47_measure.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/20190523/avg_drifting_10_gap_47_measure.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/20190523/avg_drifting_10_gap_47_prediction.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/20190523/avg_drifting_10_gap_47_prediction.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/20190523/avg_drifting_10_gap_47_ps.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/20190523/avg_drifting_10_gap_47_ps.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/20190523/dataset/avg_data_set.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/20190523/dataset/avg_normal.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/20190523/dataset/median_data_set.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/20190523/dataset/median_normal.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/normal.py" beforeDir="false" afterPath="$PROJECT_DIR$/normal.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/report/대천해수욕장 표류사고.hwp" beforeDir="false" afterPath="$PROJECT_DIR$/report/대천해수욕장 표류사고.hwp" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -28,15 +16,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/20190523.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="243">
+            <state relative-caret-position="10108">
               <caret line="538" selection-start-line="538" selection-end-line="538" selection-end-column="43" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
-                <element signature="e#1111#1677#0" />
-                <element signature="e#1720#1967#0" />
-                <element signature="e#2016#2374#0" />
-                <element signature="e#2414#2659#0" />
-                <element signature="e#2708#3067#0" />
               </folding>
             </state>
           </provider>
@@ -45,8 +28,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/graph.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="262">
-              <caret line="40" column="16" lean-forward="true" selection-start-line="40" selection-start-column="16" selection-end-line="41" selection-end-column="19" />
+            <state relative-caret-position="266">
+              <caret line="41" column="18" selection-start-line="41" selection-start-column="18" selection-end-line="41" selection-end-column="18" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
               </folding>
@@ -57,7 +40,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/temp.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="456">
+            <state relative-caret-position="342">
               <caret line="24" column="14" selection-start-line="24" selection-start-column="14" selection-end-line="24" selection-end-column="14" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
@@ -69,7 +52,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/validation.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-988">
+            <state relative-caret-position="95">
               <caret line="5" column="39" selection-start-line="5" selection-start-column="39" selection-end-line="6" selection-end-column="46" />
             </state>
           </provider>
@@ -89,7 +72,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/normal.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
+            <state relative-caret-position="133">
               <caret line="14" column="22" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
@@ -129,7 +112,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="85" />
     <option name="y" value="25" />
     <option name="width" value="1750" />
@@ -140,6 +123,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -156,11 +140,11 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
@@ -290,9 +274,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16621985" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.165786" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -302,19 +285,39 @@
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="5" />
       <window_info anchor="bottom" id="Version Control" order="6" />
-      <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.3286119" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Python Console" order="9" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info active="true" anchor="right" id="Run" order="3" visible="true" weight="0.41890082" />
+      <window_info anchor="right" id="Run" order="3" weight="0.41890082" />
     </layout>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/20190523.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="10108">
+          <caret line="538" selection-start-line="538" selection-end-line="538" selection-end-column="43" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/temp.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="24" column="14" selection-start-line="24" selection-start-column="14" selection-end-line="24" selection-end-column="14" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/validation.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-988">
+        <state relative-caret-position="95">
           <caret line="5" column="39" selection-start-line="5" selection-start-column="39" selection-end-line="6" selection-end-column="46" />
         </state>
       </provider>
@@ -330,7 +333,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/normal.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
+        <state relative-caret-position="133">
           <caret line="14" column="22" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
@@ -338,35 +341,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/temp.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="24" column="14" selection-start-line="24" selection-start-column="14" selection-end-line="24" selection-end-column="14" />
-          <folding>
-            <element signature="e#0#19#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/20190523.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="538" selection-start-line="538" selection-end-line="538" selection-end-column="43" />
-          <folding>
-            <element signature="e#0#19#0" expanded="true" />
-            <element signature="e#1111#1677#0" />
-            <element signature="e#1720#1967#0" />
-            <element signature="e#2016#2374#0" />
-            <element signature="e#2414#2659#0" />
-            <element signature="e#2708#3067#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/graph.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="40" column="16" lean-forward="true" selection-start-line="40" selection-start-column="16" selection-end-line="41" selection-end-column="19" />
+        <state relative-caret-position="266">
+          <caret line="41" column="18" selection-start-line="41" selection-start-column="18" selection-end-line="41" selection-end-column="18" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
           </folding>
