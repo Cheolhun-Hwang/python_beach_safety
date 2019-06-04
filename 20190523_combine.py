@@ -760,26 +760,28 @@ def operation(ac, lb, ad, save, f_columns):
 print("\nCombinations")
 comb_list = combinationFeature()
 
-for column_names in comb_list:
-    print("\nLoad Data")
 
-    if (type == 'drifting'):
-        print("type : drifting")
-        ac, lb, ad = get_drifting_time_accident(load_path, load_drift_file, column_names)
-    else:
-        print("type : drowning")
-        ac, lb, ad = get_drowning_time_accident(load_path, load_drown_file, column_names)
 
-    column_names.append('hour')
-    features_length = len(column_names)
-    save_file_name = file_type + "_" + type + "_" + str(features_length) + "_" + type_optimal + "_" + str(
-        optimal_k_range) + "_"
-    add_save_file = save_file_name+featuresColumn(column_names)
-    # for k in range(5, 51, 1):
-    #   operation(ac, lb, ad, add_save_file, column_names, k)
-    print("Features Size : " + str(len(column_names)))
-    print(str(column_names))
-    operation(ac, lb, ad, add_save_file, column_names)
+# for column_names in comb_list:
+#     print("\nLoad Data")
+#
+#     if (type == 'drifting'):
+#         print("type : drifting")
+#         ac, lb, ad = get_drifting_time_accident(load_path, load_drift_file, column_names)
+#     else:
+#         print("type : drowning")
+#         ac, lb, ad = get_drowning_time_accident(load_path, load_drown_file, column_names)
+#
+#     column_names.append('hour')
+#     features_length = len(column_names)
+#     save_file_name = file_type + "_" + type + "_" + str(features_length) + "_" + type_optimal + "_" + str(
+#         optimal_k_range) + "_"
+#     add_save_file = save_file_name+featuresColumn(column_names)
+#     # for k in range(5, 51, 1):
+#     #   operation(ac, lb, ad, add_save_file, column_names, k)
+#     print("Features Size : " + str(len(column_names)))
+#     print(str(column_names))
+#     operation(ac, lb, ad, add_save_file, column_names)
 
 
 
