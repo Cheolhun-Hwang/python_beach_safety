@@ -19,7 +19,7 @@ load_drown_file = file_type+'_drowning_normal.csv'
 # load_drift_file = file_type+'_normal_2.csv'
 # load_drown_file = file_type+'_normal_2.csv'
 
-save_path = './data/20190604/'
+save_path = './data/20190605/'
 save_drift_path = save_path+'drifting/'
 save_drown_path = save_path+'drowning/'
 

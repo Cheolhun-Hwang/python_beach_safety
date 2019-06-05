@@ -12,94 +12,21 @@ from sklearn.metrics import confusion_matrix
 ########################################################################################################################
 
 def combinationFeature():
+    from itertools import combinations
     data_column_list = ['wind_dir', 'current_dir', 'wind_speed', 'current_speed', \
                         'wave_height', 'water_temp', 'tide_height', 'dif_tide_height', \
                         'tide_variation']
-    all_combination_list = []
-    for index1 in range(0, len(data_column_list), 1):
-        print("index 0 : " + str(index1))
-        column_list = []
-        column_list.append(data_column_list[index1])
-        for index2 in range((index1+1), len(data_column_list), 1):
-            print("index 1 : " + str(index2))
-            column_list.append(data_column_list[index2])
-            for index3 in range(index2, len(data_column_list), 1):
-                print("index 2 : " + str(index3))
-                temp_list_1 = list.copy(column_list)
-                if(index3 == index2):
-                    all_combination_list.append(temp_list_1)
-                    print("List : " + str(temp_list_1))
-                    print("Appand!")
-                else:
-                    temp_list_1.append(data_column_list[index3])
-                    for index4 in range(index3, len(data_column_list), 1):
-                        print("index 3 : " + str(index4))
-                        temp_list_2 = list.copy(temp_list_1)
-                        if(index4 == index3):
-                            all_combination_list.append(temp_list_2)
-                            print("List : " + str(temp_list_2))
-                            print("Appand!")
-                        else :
-                            temp_list_2.append(data_column_list[index4])
-                            for index5 in range(index4, len(data_column_list), 1):
-                                print("index 4 : " + str(index5))
-                                temp_list_3 = list.copy(temp_list_2)
-                                if (index5 == index4):
-                                    all_combination_list.append(temp_list_3)
-                                    print("List : " + str(temp_list_3))
-                                    print("Appand!")
-                                else:
-                                    temp_list_3.append(data_column_list[index5])
-                                    for index6 in range(index5, len(data_column_list), 1):
-                                        print("index 5 : " + str(index6))
-                                        temp_list_4 = list.copy(temp_list_3)
-                                        if (index6 == index5):
-                                            all_combination_list.append(temp_list_4)
-                                            print("List : " + str(temp_list_4))
-                                            print("Appand!")
-                                        else:
-                                            temp_list_4.append(data_column_list[index6])
-                                            for index7 in range(index6, len(data_column_list), 1):
-                                                print("index 6 : " + str(index7))
-                                                temp_list_5 = list.copy(temp_list_4)
-                                                if (index7 == index6):
-                                                    all_combination_list.append(temp_list_5)
-                                                    print("List : " + str(temp_list_5))
-                                                    print("Appand!")
-                                                else:
-                                                    temp_list_5.append(data_column_list[index7])
-                                                    for index8 in range(index7, len(data_column_list), 1):
-                                                        print("index 7 : " + str(index6))
-                                                        temp_list_6 = list.copy(temp_list_5)
-                                                        if (index8 == index7):
-                                                            all_combination_list.append(temp_list_6)
-                                                            print("List : " + str(temp_list_6))
-                                                            print("Appand!")
-                                                        else:
-                                                            temp_list_6.append(data_column_list[index8])
-                                                            for index9 in range(index8, len(data_column_list), 1):
-                                                                print("index 8 : " + str(index9))
-                                                                temp_list_7 = list.copy(temp_list_6)
-                                                                if (index9 == index8):
-                                                                    all_combination_list.append(temp_list_7)
-                                                                    print("List : " + str(temp_list_7))
-                                                                    print("Appand! 1!")
-                                                                else:
-                                                                    temp_list_7.append(data_column_list[index9])
-                                                                    all_combination_list.append(temp_list_7)
-                                                                    print("List : " + str(temp_list_7))
-                                                                    print("Appand! 2!")
-                                                                    temp_list_7.clear()
-                                                            temp_list_6.clear()
-                                                    temp_list_5.clear()
-                                            temp_list_4.clear()
-                                    temp_list_3.clear()
-                            temp_list_2.clear()
-                    temp_list_1.clear()
+    all_list = []
 
-    all_combination_list.sort(key=lambda s: len(s))
-    all_list = list(set([tuple(set(item)) for item in all_combination_list]))
-    all_list.reverse()
+    all_list.extend(list(combinations(data_column_list, 2)))
+    all_list.extend(list(combinations(data_column_list, 3)))
+    all_list.extend(list(combinations(data_column_list, 4)))
+    all_list.extend(list(combinations(data_column_list, 5)))
+    all_list.extend(list(combinations(data_column_list, 6)))
+    all_list.extend(list(combinations(data_column_list, 7)))
+    all_list.extend(list(combinations(data_column_list, 8)))
+    all_list.extend(list(combinations(data_column_list, 9)))
+
     return all_list
 def convertColumnToDataframe(dataset, combinations):
     data = []
@@ -116,9 +43,12 @@ def get_drowning_time(path, file, columns):
 
     hour = dataset['hour']
     drowning = dataset['drowning']
-
-    temp_dataset = pd.concat([hour,
+    if(in_hour == True):
+        temp_dataset = pd.concat([hour,
                               convertColumnToDataframe(dataset, columns)], axis=1)
+    else :
+        temp_dataset = pd.concat([
+            convertColumnToDataframe(dataset, columns)], axis=1)
 
     return temp_dataset, drowning, dataset
 def get_drowning_time_accident(path, file, columns):
@@ -128,8 +58,12 @@ def get_drowning_time_accident(path, file, columns):
     hour = dataset['hour']
     drowning = dataset['drowning']
 
-    temp_dataset = pd.concat([hour,
-                              convertColumnToDataframe(dataset, columns)], axis=1)
+    if (in_hour == True):
+        temp_dataset = pd.concat([hour,
+                                  convertColumnToDataframe(dataset, columns)], axis=1)
+    else:
+        temp_dataset = pd.concat([
+            convertColumnToDataframe(dataset, columns)], axis=1)
 
     return temp_dataset, drowning, dataset
 def get_drifting_time(path, file, columns):
@@ -137,8 +71,12 @@ def get_drifting_time(path, file, columns):
 
     hour = dataset['hour']
     drifting = dataset['drifting']
-    temp_dataset = pd.concat([hour,
-                              convertColumnToDataframe(dataset, columns)], axis=1)
+    if (in_hour == True):
+        temp_dataset = pd.concat([hour,
+                                  convertColumnToDataframe(dataset, columns)], axis=1)
+    else:
+        temp_dataset = pd.concat([
+            convertColumnToDataframe(dataset, columns)], axis=1)
 
     return temp_dataset, drifting, dataset
 def get_drifting_time_accident(path, file, columns):
@@ -149,8 +87,12 @@ def get_drifting_time_accident(path, file, columns):
     hour = dataset['hour']
     drifting = dataset['drifting']
 
-    temp_dataset = pd.concat([hour,
-                              convertColumnToDataframe(dataset, columns)], axis=1)
+    if (in_hour == True):
+        temp_dataset = pd.concat([hour,
+                                  convertColumnToDataframe(dataset, columns)], axis=1)
+    else:
+        temp_dataset = pd.concat([
+            convertColumnToDataframe(dataset, columns)], axis=1)
 
     return temp_dataset, drifting, dataset
 def showData(feature, label, data):
@@ -718,7 +660,7 @@ def matrixBasianDrifting(datas):
 
 
 def saveFile(columns, bestK, kList, type):
-    f = open("./data/"+type+"_save_optimal_k.csv", 'a')
+    f = open("./data/20190605/"+type+"_"+str(in_hour)+"_save_optimal_k.csv", 'a')
     data = str(columns).replace(',', ' ') + ',' + str(bestK) + ',' + str(kList).replace(',' , ' ') + '\n'
     f.write(data)
     f.close()
@@ -728,21 +670,22 @@ def saveFile(columns, bestK, kList, type):
 ## Set Params
 print("Set Params \n")
 file_type = 'avg'
-type = 'drowning'
-# type = 'drifting'
+# type = 'drowning'
+type = 'drifting'
 
 load_path = './data/20190523/dataset/'
 load_drift_file = file_type+'_'+type+'_normal.csv'
 load_drown_file = file_type+'_'+type+'_normal.csv'
 
-save_path = './data/20190523/'
-save_drift_path = 'drifting/save/'
-save_drown_path = 'drowning/save/'
+# save_path = './data/20190605/'
+# save_drift_path = 'drifting/'
+# save_drown_path = 'drowning/'
 
-optimal_k_range = 30
+optimal_k_range = 50
 
 type_optimal = 'gap'
 optimal_bash = 100
+in_hour = False
 
 ########################################################################################################################
 print("\nCombinations")
