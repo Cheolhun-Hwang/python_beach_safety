@@ -1,0 +1,10 @@
+precision : 0.1797274275979557
+recall : 0.985981308411215
+f_measure : 0.30403458213256485
+TPR : 0.985981308411215
+FNR : 0.014018691588785047
+Features : ['hour', 'wind_speed', 'current_speed', 'wave_height', 'dif_tide_height', 'tide_variation']
+Optimal K : 10/ Pick : type : drifting
+optimal method : gap
+merge type : avg
+

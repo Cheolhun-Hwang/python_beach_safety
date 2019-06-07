@@ -1,0 +1,10 @@
+precision : 0.0512396694214876
+recall : 0.9117647058823529
+f_measure : 0.0970266040688576
+TPR : 0.9117647058823529
+FNR : 0.08823529411764706
+Features : ['hour', 'wind_dir', 'water_temp', 'tide_height']
+Optimal K : 2/ Pick : type : drowning
+optimal method : gap
+merge type : avg
+

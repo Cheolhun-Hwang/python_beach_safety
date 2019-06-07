@@ -670,8 +670,8 @@ def saveFile(columns, bestK, kList, type):
 ## Set Params
 print("Set Params \n")
 file_type = 'avg'
-# type = 'drowning'
-type = 'drifting'
+type = 'drowning'
+# type = 'drifting'
 
 load_path = './data/20190523/dataset/'
 load_drift_file = file_type+'_'+type+'_normal.csv'
@@ -681,11 +681,11 @@ load_drown_file = file_type+'_'+type+'_normal.csv'
 # save_drift_path = 'drifting/'
 # save_drown_path = 'drowning/'
 
-optimal_k_range = 50
+optimal_k_range = 30
 
 type_optimal = 'gap'
 optimal_bash = 100
-in_hour = False
+in_hour = True
 
 ########################################################################################################################
 print("\nCombinations")
